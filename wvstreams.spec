@@ -1,6 +1,6 @@
 %define name 	wvstreams
 %define version 4.3
-%define release %mkrel 1
+%define release %mkrel 2
 
 %define major	4.3
 %define libname %mklibname %{name} %{major}
@@ -77,8 +77,6 @@ needed for developing applications which use WvStreams.
 %install
 rm -rf $RPM_BUILD_ROOT
 %makeinstall
-#drop file included in libxplc-devel
-rm -f $RPM_BUILD_ROOT%{_libdir}/libxplc-cxx.a
 
 %clean
 rm -rf $RPM_BUILD_ROOT
