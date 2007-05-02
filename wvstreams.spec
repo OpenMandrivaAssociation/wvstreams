@@ -1,6 +1,6 @@
 %define name 	wvstreams
 %define version 4.3
-%define release %mkrel 2
+%define release %mkrel 3
 
 %define major	4.3
 %define libname %mklibname %{name} %{major}
@@ -57,6 +57,7 @@ Group: 		Development/C
 Requires: 	%{libname} = %{version}-%{release}
 Provides: 	%{libname_orig}-devel = %{version}-%{release}
 Provides: 	%{name}-devel = %{version}-%{release}
+Conflicts:	libwvstreams3.74-devel
 
 %description -n %{libname}-devel
 WvStreams aims to be an efficient, secure, and easy-to-use library for
