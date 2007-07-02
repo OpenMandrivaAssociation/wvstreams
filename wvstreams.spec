@@ -1,9 +1,10 @@
 %define name 	wvstreams
-%define version 4.3
-%define release %mkrel 3
+%define version 4.3.90
+%define release %mkrel 1
 
-%define major	4.3
+%define major	4.4
 %define libname %mklibname %{name} %{major}
+%define develname %mklibname %{name} -d
 %define libname_orig lib%{name}
 
 Name:		%{name}
@@ -14,9 +15,7 @@ Group:          System/Libraries
 Group:          Development/C
 Summary: 	WvStreams is a network programming library written in C++
 URL: 		http://open.nit.ca/wvstreams
-Source: 	http://open.nit.ca/download/wvstreams-%{version}.tar.bz2
-# Adapted from Ubuntu patch in 4.2.2-2.2ubuntu2
-Patch0:		wvstreams-4.3-build.patch
+Source: 	http://open.nit.ca/download/wvstreams-%{version}.tar.gz
 # Install .ini file to /var/lib , not /var/lib/lib
 Patch1:		wvstreams-4.3-ini-location.patch
 # Change 'unsigned' to 'unsigned long' to fix x86-64 build
@@ -25,6 +24,7 @@ BuildRoot: 	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 BuildRequires: 	openssl-devel
 BuildRequires: 	zlib-devel
 BuildRequires:	libxplc-devel
+BuildRequires:	readline-devel
 
 %description
 WvStreams aims to be an efficient, secure, and easy-to-use library for
@@ -51,22 +51,21 @@ Summary: 	WvStreams is a network programming library written in C++
 WvStreams aims to be an efficient, secure, and easy-to-use library for
 doing network applications development.
 
-%package -n %{libname}-devel
+%package -n %{develname}
 Summary: 	Development files for WvStreams.
 Group: 		Development/C
 Requires: 	%{libname} = %{version}-%{release}
-Provides: 	%{libname_orig}-devel = %{version}-%{release}
 Provides: 	%{name}-devel = %{version}-%{release}
-Conflicts:	libwvstreams3.74-devel
+Obsoletes:	%{_lib}%{name}4.3-devel
 
-%description -n %{libname}-devel
+%description -n %{develname}
 WvStreams aims to be an efficient, secure, and easy-to-use library for
 doing network applications development. This package contains the files
 needed for developing applications which use WvStreams.
 
 %prep
 %setup -q
-%patch0 -p1 -b .build
+#%patch0 -p1 -b .build
 %patch1 -p1 -b .ini
 %patch2 -p1 -b .x86_64
 
@@ -100,7 +99,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root)
 %{_libdir}/*.so.*
 
-%files -n %{libname}-devel
+%files -n %{develname}
 %defattr(-,root,root)
 %{_includedir}/wvstreams
 %{_libdir}/*.a
