@@ -70,9 +70,9 @@ needed for developing applications which use WvStreams.
 %patch2 -p1 -b .x86_64
 
 %build
-%configure --with-openssl --with-zlib --with-qdbm=no --with-qt=no --with-pam=no --with-qt=no --with-telephony=no --with-tcl=no --with-swig=no --with-openslp=no
+CFLAGS="$RPM_OPT_FLAGS -fPIC" CXXFLAGS="$RPM_OPT_FLAGS -fPIC" %configure --with-openssl --with-zlib --with-qdbm=no --with-qt=no --with-pam=no --with-qt=no --with-telephony=no --with-tcl=no --with-swig=no --with-openslp=no
 
-%make COPTS="$RPM_OPT_FLAGS -fPIC" CXXOPTS="$RPM_OPT_FLAGS -fPIC"
+CFLAGS="$RPM_OPT_FLAGS -fPIC" CXXFLAGS="$RPM_OPT_FLAGS -fPIC" %make
 
 %install
 rm -rf $RPM_BUILD_ROOT
