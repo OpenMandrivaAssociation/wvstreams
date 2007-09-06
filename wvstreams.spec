@@ -1,6 +1,6 @@
 %define name 	wvstreams
-%define version 4.3.90
-%define release %mkrel 2
+%define version 4.4
+%define release %mkrel 1
 
 %define major	4.4
 %define libname %mklibname %{name} %{major}
@@ -10,7 +10,7 @@
 Name:		%{name}
 Version: 	%{version}
 Release: 	%{release}
-License: 	LGPL
+License: 	LGPLv2+
 Group:          System/Libraries
 Group:          Development/C
 Summary: 	WvStreams is a network programming library written in C++
@@ -18,8 +18,6 @@ URL: 		http://open.nit.ca/wvstreams
 Source: 	http://open.nit.ca/download/wvstreams-%{version}.tar.gz
 # Install .ini file to /var/lib , not /var/lib/lib
 Patch1:		wvstreams-4.3-ini-location.patch
-# Change 'unsigned' to 'unsigned long' to fix x86-64 build
-Patch2:		wvstreams-4.3-x86_64build.patch
 BuildRoot: 	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 BuildRequires: 	openssl-devel
 BuildRequires: 	zlib-devel
@@ -67,7 +65,6 @@ needed for developing applications which use WvStreams.
 %setup -q
 #%patch0 -p1 -b .build
 %patch1 -p1 -b .ini
-%patch2 -p1 -b .x86_64
 
 %build
 CFLAGS="$RPM_OPT_FLAGS -fPIC" CXXFLAGS="$RPM_OPT_FLAGS -fPIC" %configure --with-openssl --with-zlib --with-qdbm=no --with-qt=no --with-pam=no --with-qt=no --with-telephony=no --with-tcl=no --with-swig=no --with-openslp=no
