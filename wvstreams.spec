@@ -50,7 +50,7 @@ WvStreams aims to be an efficient, secure, and easy-to-use library for
 doing network applications development.
 
 %package -n %{develname}
-Summary: 	Development files for WvStreams.
+Summary: 	Development files for WvStreams
 Group: 		Development/C
 Requires: 	%{libname} = %{version}-%{release}
 Provides: 	%{name}-devel = %{version}-%{release}
