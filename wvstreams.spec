@@ -18,6 +18,7 @@ URL: 		http://open.nit.ca/wvstreams
 Source: 	http://open.nit.ca/download/wvstreams-%{version}.tar.gz
 # Install .ini file to /var/lib , not /var/lib/lib
 Patch1:		wvstreams-4.3-ini-location.patch
+BuildRoot: 	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 BuildRequires: 	openssl-devel
 BuildRequires: 	zlib-devel
 BuildRequires:	libxplc-devel
