@@ -1,6 +1,6 @@
 %define name 	wvstreams
 %define version 4.4
-%define release %mkrel 1
+%define release %mkrel 2
 
 %define major	4.4
 %define libname %mklibname %{name} %{major}
