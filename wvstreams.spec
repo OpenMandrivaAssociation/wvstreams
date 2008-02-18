@@ -13,7 +13,7 @@ Release: 	%{release}
 License: 	LGPLv2+
 Group:          System/Libraries
 Group:          Development/C
-Summary: 	WvStreams is a network programming library written in C++
+Summary: 	Network programming library written in C++
 URL: 		http://open.nit.ca/wvstreams
 Source: 	http://open.nit.ca/download/wvstreams-%{version}.tar.gz
 # Install .ini file to /var/lib , not /var/lib/lib
@@ -30,7 +30,7 @@ doing network applications development.
 
 %package -n uniconf
 Group:		System/Configuration/Other
-Summary:	UniConf is a configuration system
+Summary:	Configuration system
 Requires: 	%{libname} = %{version}-%{release}
 
 %description -n uniconf
@@ -43,7 +43,7 @@ request of a UniConf client.
 
 %package -n %{libname}
 Group:          System/Libraries
-Summary: 	WvStreams is a network programming library written in C++
+Summary: 	Network programming library written in C++
 
 %description -n %{libname}
 WvStreams aims to be an efficient, secure, and easy-to-use library for
