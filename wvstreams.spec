@@ -1,6 +1,5 @@
 %define name 	wvstreams
 %define version 4.4
-%define release %mkrel 2
 
 %define major	4.4
 %define libname %mklibname %{name} %{major}
@@ -9,7 +8,7 @@
 
 Name:		%{name}
 Version: 	%{version}
-Release: 	%{release}
+Release: 	%mkrel 3
 License: 	LGPLv2+
 Group:          System/Libraries
 Group:          Development/C
