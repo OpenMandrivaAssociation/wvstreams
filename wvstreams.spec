@@ -87,8 +87,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/uni
 %{_sbindir}/uniconfd
 %{_mandir}/man8/*
-%dir %{_localstatedir}/uniconf
-%{_localstatedir}/uniconf/uniconfd.ini
+%dir %{_localstatedir}/lib/uniconf
+%{_localstatedir}/lib/uniconf/uniconfd.ini
 
 %files -n %{libname}
 %doc COPYING.LIB README
