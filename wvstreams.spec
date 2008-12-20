@@ -1,22 +1,20 @@
-%define name 	wvstreams
-%define version 4.4
+%define major		4.5
+%define libname		%mklibname %{name} %{major}
+%define develname	%mklibname %{name} -d
+%define libname_orig	lib%{name}
 
-%define major	4.4
-%define libname %mklibname %{name} %{major}
-%define develname %mklibname %{name} -d
-%define libname_orig lib%{name}
-
-Name:		%{name}
-Version: 	%{version}
-Release: 	%mkrel 4
+Name:		wvstreams
+Version: 	4.5
+Release: 	%mkrel 1
 License: 	LGPLv2+
 Group:          System/Libraries
 Group:          Development/C
 Summary: 	Network programming library written in C++
-URL: 		http://open.nit.ca/wvstreams
-Source: 	http://open.nit.ca/download/wvstreams-%{version}.tar.gz
-# Install .ini file to /var/lib , not /var/lib/lib
-Patch1:		wvstreams-4.3-ini-location.patch
+URL: 		http://code.google.com/p/wvstreams
+Source0: 	http://wvstreams.googlecode.com/files/%{name}-%{version}.tar.gz
+# Fix a couple of GCC 4.3 build issues - should all be fixed upstream
+# in 4.6 - AdamW 2008/12
+Patch0:		wvstreams-4.5-gcc43.patch
 BuildRoot: 	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 BuildRequires: 	openssl-devel
 BuildRequires: 	zlib-devel
@@ -62,20 +60,28 @@ needed for developing applications which use WvStreams.
 
 %prep
 %setup -q
-#%patch0 -p1 -b .build
-%patch1 -p1 -b .ini
+%patch0 -p1 -b .gcc43
 
 %build
-CFLAGS="$RPM_OPT_FLAGS -fPIC" CXXFLAGS="$RPM_OPT_FLAGS -fPIC" %configure --with-openssl --with-zlib --with-qdbm=no --with-qt=no --with-pam=no --with-qt=no --with-telephony=no --with-tcl=no --with-swig=no --with-openslp=no
+CFLAGS="%{optflags} -fPIC" CXXFLAGS="%{optflags} -fPIC" %configure2_5x \
+	--with-openssl \
+	--with-zlib \
+	--with-qdbm=no \
+	--with-qt=no \
+	--with-pam=no \
+	--with-telephony=no \
+	--with-tcl=no \
+	--with-swig=no \
+	--with-openslp=no
 
-CFLAGS="$RPM_OPT_FLAGS -fPIC" CXXFLAGS="$RPM_OPT_FLAGS -fPIC" %make
+CFLAGS="%{optflags} -fPIC" CXXFLAGS="%{optflags} -fPIC" make
 
 %install
-rm -rf $RPM_BUILD_ROOT
-%makeinstall
+rm -rf %{buildroot}
+%makeinstall_std
 
 %clean
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 
 %if %mdkversion < 200900
 %post -n %{libname} -p /sbin/ldconfig
@@ -95,13 +101,17 @@ rm -rf $RPM_BUILD_ROOT
 %{_localstatedir}/lib/uniconf/uniconfd.ini
 
 %files -n %{libname}
-%doc COPYING.LIB README
 %defattr(-,root,root)
 %{_libdir}/*.so.*
 
 %files -n %{develname}
+%doc README
 %defattr(-,root,root)
+%{_bindir}/wsd
+%{_bindir}/wvtestrunner.pl
 %{_includedir}/wvstreams
 %{_libdir}/*.a
 %{_libdir}/*.so
 %{_libdir}/pkgconfig/*
+%{_libdir}/valgrind/*.supp
+
