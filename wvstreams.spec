@@ -1,25 +1,25 @@
-%define major		4.5
+%define major		4.6
 %define libname		%mklibname %{name} %{major}
 %define develname	%mklibname %{name} -d
 %define libname_orig	lib%{name}
 
 Name:		wvstreams
-Version: 	4.5
-Release: 	%mkrel 2
+Version: 	4.6.1
+Release: 	%mkrel 1
 License: 	LGPLv2+
 Group:          System/Libraries
 Group:          Development/C
 Summary: 	Network programming library written in C++
 URL: 		http://code.google.com/p/wvstreams
 Source0: 	http://wvstreams.googlecode.com/files/%{name}-%{version}.tar.gz
-# Fix a couple of GCC 4.3 build issues - should all be fixed upstream
-# in 4.6 - AdamW 2008/12
-Patch0:		wvstreams-4.5-gcc43.patch
+Patch1:		wvstreams-4.2.2-multilib.patch
+Patch2:		wvstreams-4.5-noxplctarget.patch
 BuildRoot: 	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 BuildRequires: 	openssl-devel
 BuildRequires: 	zlib-devel
 BuildRequires:	libxplc-devel
 BuildRequires:	readline-devel
+BuildRequires:	dbus-devel
 
 %description
 WvStreams aims to be an efficient, secure, and easy-to-use library for
@@ -60,21 +60,19 @@ needed for developing applications which use WvStreams.
 
 %prep
 %setup -q
-%patch0 -p1 -b .gcc43
+%patch1 -p1 -b .multilib
+%patch2 -p1 -b .xplctarget
 
 %build
-CFLAGS="%{optflags} -fPIC" CXXFLAGS="%{optflags} -fPIC" %configure2_5x \
+CFLAGS="%{optflags} -fPIC -fpermissive" CXXFLAGS="%{optflags} -fPIC -fpermissive" %configure2_5x \
+	--disable-static \
+	--with-dbus=yes --with-pam \
 	--with-openssl \
 	--with-zlib \
-	--with-qdbm=no \
 	--with-qt=no \
 	--with-pam=no \
-	--with-telephony=no \
-	--with-tcl=no \
-	--with-swig=no \
-	--with-openslp=no
-
-CFLAGS="%{optflags} -fPIC" CXXFLAGS="%{optflags} -fPIC" make
+	--with-tcl=no
+make
 
 %install
 rm -rf %{buildroot}
@@ -108,7 +106,7 @@ rm -rf %{buildroot}
 %doc README
 %defattr(-,root,root)
 %{_bindir}/wsd
-%{_bindir}/wvtestrunner.pl
+%{_bindir}/wvtestrun
 %{_includedir}/wvstreams
 %{_libdir}/*.a
 %{_libdir}/*.so
