@@ -14,6 +14,9 @@ URL: 		http://code.google.com/p/wvstreams
 Source0: 	http://wvstreams.googlecode.com/files/%{name}-%{version}.tar.gz
 Patch1:		wvstreams-4.2.2-multilib.patch
 Patch2:		wvstreams-4.5-noxplctarget.patch
+Patch3:		wvstreams-4.6.1-glibc212.patch
+Patch4:		wvstreams-4.6.1-parallel-make.patch
+Patch5:		wvstreams-4.6.1-openssl-1.0.0.patch
 BuildRoot: 	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 BuildRequires: 	openssl-devel
 BuildRequires: 	zlib-devel
@@ -62,6 +65,9 @@ needed for developing applications which use WvStreams.
 %setup -q
 %patch1 -p1 -b .multilib
 %patch2 -p1 -b .xplctarget
+%patch3 -p0
+%patch4 -p1
+%patch5 -p1
 
 %build
 CFLAGS="%{optflags} -fPIC -fpermissive" CXXFLAGS="%{optflags} -fPIC -fpermissive" %configure2_5x \
@@ -72,7 +78,7 @@ CFLAGS="%{optflags} -fPIC -fpermissive" CXXFLAGS="%{optflags} -fPIC -fpermissive
 	--with-qt=no \
 	--with-pam=no \
 	--with-tcl=no
-make
+%make
 
 %install
 rm -rf %{buildroot}
