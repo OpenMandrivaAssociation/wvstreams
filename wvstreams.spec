@@ -5,7 +5,7 @@
 
 Name:		wvstreams
 Version: 	4.6.1
-Release: 	%mkrel 4
+Release: 	%mkrel 5
 License: 	LGPLv2+
 Group:          System/Libraries
 Group:          Development/C
