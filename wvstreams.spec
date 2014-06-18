@@ -5,7 +5,7 @@
 
 Name:		wvstreams
 Version:	4.6.1
-Release:	13
+Release:	14
 License:	LGPLv2+
 Group:		System/Libraries
 Group:		Development/C
@@ -70,7 +70,7 @@ needed for developing applications which use WvStreams.
 %patch6 -p0
 
 %build
-CFLAGS="%{optflags} -fPIC -fpermissive" CXXFLAGS="%{optflags} -fPIC -fpermissive" %configure2_5x \
+CFLAGS="%{optflags} -fno-tree-dce -fno-optimize-sibling-calls -fPIC -fpermissive" CXXFLAGS="%{optflags} -fno-tree-dce -fno-optimize-sibling-calls -fPIC -fpermissive" %configure2_5x \
 	--disable-static \
 	--with-dbus=yes --with-pam \
 	--with-openssl \
