@@ -70,7 +70,8 @@ needed for developing applications which use WvStreams.
 %patch6 -p0
 
 %build
-CFLAGS="%{optflags} -fno-tree-dce -fno-optimize-sibling-calls -fPIC -fpermissive" CXXFLAGS="%{optflags} -fno-tree-dce -fno-optimize-sibling-calls -fPIC -fpermissive" %configure2_5x \
+CFLAGS="%{optflags} -fno-tree-dce -fno-optimize-sibling-calls -fPIC -fpermissive"  \ 
+CXXFLAGS="%{optflags} -fno-tree-dce -fno-optimize-sibling-calls -fPIC -fpermissive" %configure2_5x \
 	--disable-static \
 	--with-dbus=yes --with-pam \
 	--with-openssl \
