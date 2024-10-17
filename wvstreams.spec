@@ -10,7 +10,7 @@ License:	LGPLv2+
 Group:		System/Libraries
 Group:		Development/C
 Summary:	Network programming library written in C++
-URL:		http://code.google.com/p/wvstreams
+URL:		https://code.google.com/p/wvstreams
 Source0:	http://wvstreams.googlecode.com/files/%{name}-%{version}.tar.gz
 Patch1:		wvstreams-4.2.2-multilib.patch
 Patch2:		wvstreams-4.5-noxplctarget.patch
